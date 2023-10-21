@@ -4,12 +4,12 @@ const contenedorCarrito = document.querySelector('#lista-carrito')
 const vaciarCarrito = document.querySelector('#vaciar-carrito')
 
 addEventsHandle()
-function addEventsHandle () {
-  listaCursos.addEventListener('click', addCurso)
+function addEventsHandle() {
+    listaCursos.addEventListener('click', addCurso)
 }
 
-function addCurso (e) {
-  e.preventDefault()
+function addCurso(e) {
+    e.preventDefault()
 
-  console.log(e.terget)
+    console.log(e.terget)
 }

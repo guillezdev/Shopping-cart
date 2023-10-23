@@ -9,7 +9,10 @@ function addEventsHandle() {
 
   listaCursos.addEventListener('click', addCurso);
 
-  vaciarCarrito.addEventListener('click', EmptyCart)
+  carrito.addEventListener('click', toDeleteRow)
+
+  vaciarCarrito.addEventListener('click', EmptyCart);
+
 }
 
 function addCurso(e) {
@@ -19,9 +22,21 @@ function addCurso(e) {
   if (e.target.classList.contains("agregar-carrito")) {
     const cart = e.target.parentNode.parentNode;
 
-    upDateCart(cart)
+    upDateCart(cart);
   };
 
+}
+
+function toDeleteRow(e) {
+  e.preventDefault();
+  if (e.target.classList.contains("borrar-curso")) {
+
+    const deleteId = e.target.getAttribute('data-id');
+    dataCartShop = dataCartShop.filter((el) => {
+      return el.dataId != deleteId
+    })
+    e.target.parentNode.parentNode.innerHTML = ''
+  }
 }
 
 function upDateCart(cart) {
@@ -44,7 +59,7 @@ function upDateCart(cart) {
         amount: amount,
         dataId: id
       }];
-      FillCart(dataCartShop)
+      FillCart(dataCartShop);
     }
   } else {
     dataCartShop = [...dataCartShop, {
@@ -54,18 +69,14 @@ function upDateCart(cart) {
       amount: amount,
       dataId: id
     }];
-    FillCart(dataCartShop)
+    FillCart(dataCartShop);
   }
-
-
-
-}
-
+};
 
 function FillCart(dataCartShop) {
   const row = document.createElement('tr');
 
-  row.innerHTML = ''
+  row.innerHTML = '';
 
   dataCartShop.forEach((curso) => {
     row.innerHTML = `
@@ -73,15 +84,14 @@ function FillCart(dataCartShop) {
       <td><h4>${curso.title}</h4></td>
       <td><span>${curso.prise}</span></td>
       <td><spam>${curso.amount}</spam></td>
-      <td><a href='#' class='borrar-curso'>x</a></td>
-    `
+      <td><a href='#' class='borrar-curso' data-id=${curso.dataId} >x</a></td>
+    `;
     contenedorCarrito.children[1].appendChild(row);
-
   })
-
 }
 
 function EmptyCart() {
   dataCartShop = [];
-  contenedorCarrito.children[1].innerHTML = ''
+  contenedorCarrito.children[1].innerHTML = '';
 }
+

@@ -44,6 +44,7 @@ function upDateCart(cart) {
         amount: amount,
         dataId: id
       }];
+      FillCart(dataCartShop)
     }
   } else {
     dataCartShop = [...dataCartShop, {
@@ -53,19 +54,34 @@ function upDateCart(cart) {
       amount: amount,
       dataId: id
     }];
+    FillCart(dataCartShop)
   }
 
 
-  FillCart(dataCartShop)
-}
 
-function EmptyCart() {
-  dataCartShop = [];
-  console.log(dataCartShop, 'vaciar carrito');
 }
 
 
 function FillCart(dataCartShop) {
-  console.log(dataCartShop, 'llenar carrito');
-  console.log(contenedorCarrito);
+  const row = document.createElement('tr');
+
+  row.innerHTML = ''
+
+  dataCartShop.forEach((curso) => {
+    row.innerHTML = `
+      <td><img src=${curso.src} width=150 ></td>
+      <td><h4>${curso.title}</h4></td>
+      <td><span>${curso.prise}</span></td>
+      <td><spam>${curso.amount}</spam></td>
+      <td><a href='#' class='borrar-curso'>x</a></td>
+    `
+    contenedorCarrito.children[1].appendChild(row);
+
+  })
+
+}
+
+function EmptyCart() {
+  dataCartShop = [];
+  contenedorCarrito.children[1].innerHTML = ''
 }
